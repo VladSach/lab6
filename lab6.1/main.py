@@ -1,12 +1,26 @@
+from abc import ABC, abstractmethod
 import math
 
+"""
+Саченко Владислав Олегович, ИП-91, В-22, задания А и В
+Работа выполнена на языке программирования Python
+"""
 
-class Function:
+
+class Function(ABC):
     # Абстрактный класс "функции"
 
-    def __init__(self, variable):
-        self.variable = variable
+    @property
+    def variable(self):
+        return self._variable
 
+    @variable.setter
+    def variable(self, value):
+        if not isinstance(value, int):
+            raise ValueError('Value is not a number')
+        self._variable = value
+
+    @abstractmethod
     def count(self):
         # Виртуальный метод подсчета функции
         raise NotImplementedError("Subclass must implement abstract method")
@@ -14,8 +28,8 @@ class Function:
 
 class Sin(Function):
 
-    def __init__(self):
-        super().__init__(variable)
+    def __init__(self, variable):
+        self.variable = variable
 
     def count(self):
         # Переопределненный метод для синуса
@@ -33,8 +47,8 @@ class Sin(Function):
 
 
 class Cos(Function):
-    def __init__(self):
-        super().__init__(variable)
+    def __init__(self, variable):
+        self.variable = variable
 
     def count(self):
         # Переопределненный метод для косинуса
