@@ -64,3 +64,7 @@ class Cos(Function):
             sign *= -1
             s += num / fact * sign
         return +s
+
+
+sinus = Sin("90")
+sinus.count()
