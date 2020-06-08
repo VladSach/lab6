@@ -1,9 +1,16 @@
 from goods import *
 from database import *
 
+"""
+Саченко Владислав Олегович, ИП-91, В-22, задания А и В
+Работа выполнена на языке программирования Python
+"""
+
 catalog = Catalog()
-catalog.read_base()
 customer_base = CustomerBase()
+report = Report()
+catalog.read_base()
+customer_base.read_base()
 
 seller = bool(input("Вы покупатель(0) или продавец(1)? "))
 if seller:
@@ -35,11 +42,10 @@ if seller:
     else:
         print('Неверный формат')
 else:
-    catalog.show()
     name = str(input("Введите ваше имя: "))
-    if customer_base.in_base(name):
-        pass
-    else:
-
-
-goods.print()
+    catalog.show()
+    if not customer_base.in_base(name):
+        customer_base.add(name)
+    key = int(input('Введите номер желаемого товара: '))
+    report.append_deal(name, catalog.return_item(key), 1)
+    report.write_base()

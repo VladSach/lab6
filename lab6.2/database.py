@@ -1,48 +1,17 @@
-class Catalog:
-    def __init__(self):
-        self.base = dict()
-
-    def read_base():
-        file = open('base.txt')
-        f = file.readlines()
-        for i in range(len(f)):
-            f[i] = f[i][0:-1]
-            f[i] = list(map(int, f[i].split()))
-            self.base[f[i][0]] = f[i][1::]
-
-    def add(self, data):
-        key = 1
-        added = False
-        while not added:
-            if key not in self.base:
-                self.base[key] = [data]
-                added = True
-            else:
-                key += 1
-
-    def write_base(base):
-        file = open('base.txt', 'w')
-        for key in range(len(self.base)):
-            if key in self.base:
-                file.write(str(key))
-                values = self.base[key]
-                for i in values:
-                    file.write(' ' + str(i))
-                file.write('\n')
-
-    def show():
-        for i in self.base:
-            print(i)
-
-    def sold(key):
-        item = self.base[key]
-        self.base["SOLD" + str(key)] = item
-        del self.base[key]
+from abc import ABC, abstractmethod
+from random import randint
 
 
-class CustomerBase:
-    def __init__(self):
-        self.base = list()
+def DataBase(ABC):
+    @property
+    def base(self):
+        return self._base
+
+    @price.setter
+    def base(self, value):
+        if not isinstance(value, list):
+            raise ValueError('Price is not a number')
+        self._base = value
 
     def read_base():
         file = open('customer_base.txt')
@@ -50,10 +19,52 @@ class CustomerBase:
         for i in range(len(f)):
             self.base.append(i)
 
+    def write_base():
+        file = open('base.txt', 'w')
+        for i in self.base:
+            file.write(str(i))
+        file.write('\n')
 
-class Customer:
-    def __init__(self, name, time, description, conditions):
-        self.name = name
-        self.time = time
-        self.description = description
-        self.conditions = conditions
+    def add(data):
+        self.base.append(data)
+
+
+class Catalog(DataBase):
+    def __init__(self):
+        self.base = list()
+
+    def show():
+        for i in self.base:
+            print(i)
+
+    def sold(key):
+        item = self.base[key]
+        self.base[key] = "SOLD"
+
+    def return_item(key):
+        return self.base[key]
+
+
+class CustomerBase(DataBase):
+    def __init__(self):
+        self.base = list()
+
+    def in_base(name):
+        if name in self.base:
+            return True
+        else:
+            return False
+
+
+class Report(DataBase):
+    def __init__(self):
+        self.base = list()
+
+    def write_base():
+        file = open('base.txt', 'w')
+        for i in self.base:
+            file.write(str(i))
+        file.write('\n')
+
+    def append_deal(name, type, number):
+        self.base.append([name, type, number])
